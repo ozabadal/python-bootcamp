@@ -1,16 +1,16 @@
 from flask import Flask, request, jsonify
 from flasgger import Swagger
-from app.config import Config
-from app.database import db
-from app.services.auth_service import register_user, login_user
-from app.services.department_service import create_department, list_departments
-from app.services.user_service import create_doctor, assign_doctor_to_department
-from app.schemas.department_schema import department_schema, departments_schema
-from app.schemas.user_schema import user_schema
-from app.schemas.doctor_department_schema import doctor_department_schema, doctor_assign_schema
+from Clinic_backend.config import Config
+from Clinic_backend.database import db
+from Clinic_backend.Admin.services.auth_service import register_user, login_user
+from Clinic_backend.Admin.services.department_service import create_department, list_departments
+from Clinic_backend.Admin.services.user_service import create_doctor, assign_doctor_to_department
+from Clinic_backend.Admin.schemas.department_schema import department_schema, departments_schema
+from Clinic_backend.Admin.schemas.user_schema import user_schema
+from Clinic_backend.Admin.schemas.doctor_department_schema import doctor_department_schema, doctor_assign_schema
 
-from app.utils.rbac import role_required
-from app.models.user import Role
+from Clinic_backend.common.rbac import role_required
+from Clinic_backend.Admin.models.user import Role
 
 import os
 import yaml

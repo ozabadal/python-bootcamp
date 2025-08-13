@@ -1,5 +1,4 @@
 flask
-mysql-connector-python
 psycopg2-binary
 marshmallow
 Flask-SQLAlchemy

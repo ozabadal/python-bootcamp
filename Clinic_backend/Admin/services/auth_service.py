@@ -1,7 +1,7 @@
-from app.models.user import User, Role
-from app.database import db
-from app.utils.security import hash_password, verify_password
-from app.utils.jwt_handler import create_access_token
+from Clinic_backend.Admin.models.user import User, Role
+from Clinic_backend.database import db
+from Clinic_backend.common.utils import hash_password, verify_password
+from Clinic_backend.common.jwt_handler import create_access_token
 
 def register_user(name, email, password, role=Role.MEMBER):
     if User.query.filter_by(email=email).first():
