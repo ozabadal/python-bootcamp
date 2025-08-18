@@ -6,7 +6,6 @@ class DoctorDepartmentSchema(Schema):
     department_id = fields.Int(required=True)
 
 doctor_department_schema = DoctorDepartmentSchema()
-doctor_departments_schema = DoctorDepartmentSchema(many=True)
 
 class DoctorAssignSchema(Schema):
     doctor_id = fields.Int(required=True)
