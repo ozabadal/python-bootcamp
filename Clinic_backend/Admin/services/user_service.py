@@ -4,7 +4,9 @@ from Clinic_backend.database import db
 from Clinic_backend.Admin.repository import user_repository
 
 def create_doctor(name, email, password):
-    return user_repository.create_user(name, email, password, role=Role.DOCTOR)
+    normalized_name = name.strip().lower()
+    normalized_email = email.strip().lower()
+    return user_repository.create_user(normalized_name, normalized_email, password, role=Role.DOCTOR)
 
 
 # TODO - denormalize assign_doctor_to_department function
