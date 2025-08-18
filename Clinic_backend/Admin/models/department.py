@@ -1,3 +1,4 @@
+from datetime import datetime
 from Clinic_backend.database import db
 
 class Department(db.Model):

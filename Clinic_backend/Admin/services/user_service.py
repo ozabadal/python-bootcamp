@@ -1,7 +1,6 @@
-from Clinic_backend.Admin.models.user import Role
+from Clinic_backend.common.models.user import Role
 from Clinic_backend.Admin.models.doctor_department import DoctorDepartment
 from Clinic_backend.database import db
-from Clinic_backend.common.utils import hash_password
 from Clinic_backend.Admin.repository import user_repository
 
 def create_doctor(name, email, password):

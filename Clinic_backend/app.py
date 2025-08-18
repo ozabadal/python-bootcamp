@@ -1,116 +1,41 @@
-from flask import Flask, request, jsonify
+import os
+import yaml
+from flask import Flask
 from flasgger import Swagger
 from Clinic_backend.config import Config
 from Clinic_backend.database import db
-from Clinic_backend.Admin.services.auth_service import register_user, login_user
-from Clinic_backend.Admin.services.department_service import create_department, list_departments
-from Clinic_backend.Admin.services.user_service import create_doctor, assign_doctor_to_department
-from Clinic_backend.Admin.schemas.department_schema import department_schema, departments_schema
-from Clinic_backend.Admin.schemas.user_schema import user_schema
-from Clinic_backend.Admin.schemas.doctor_department_schema import doctor_department_schema, doctor_assign_schema
-
-from Clinic_backend.common.rbac import role_required
-from Clinic_backend.Admin.models.user import Role
-
-import os
-import yaml
-
-# Initialize Flask app
-app = Flask(__name__)
-app.config.from_object(Config)
-
-# Initialize DB
-db.init_app(app)
-
-# Load and register Swagger docs from YAML
-swagger_path = os.path.join(os.path.dirname(__file__), "swagger.yml")
-with open(swagger_path, "r") as f:
-    swagger_template = yaml.safe_load(f)
-Swagger(app, template=swagger_template)
+from Auth.routes import auth_bp
+from Admin.routes import admin_bp
 
 
-# Routes
-@app.route("/auth/register", methods=["POST"])
-def register():
-    data = request.get_json()
-    if not all(k in data for k in ("name", "email", "password")):
-        return jsonify({"error": "Missing required fields"}), 400
+def create_app(config_class=Config):
 
-    try:
-        user = register_user(data["name"], data["email"], data["password"])
-        return jsonify(user_schema.dump(user)), 201
-    except ValueError as e:
-        return jsonify({"error": str(e)}), 400
+    app = Flask(__name__)
+    app.config.from_object(config_class)
 
+    # Initialize extensions
+    db.init_app(app)
 
-@app.route("/auth/login", methods=["POST"])
-def login():
-    data = request.get_json()
-    if not all(k in data for k in ("email", "password")):
-        return jsonify({"error": "Missing required fields"}), 400
+    # Register blueprints
+    app.register_blueprint(auth_bp, url_prefix="/auth")
+    app.register_blueprint(admin_bp, url_prefix="/admin")
 
-    try:
-        token, user = login_user(data["email"], data["password"])
-        return jsonify({
-            "access_token": token,
-            "user": user_schema.dump(user)
-        }), 200
-    except ValueError as e:
-        return jsonify({"error": str(e)}), 401
+    # Load and register Swagger docs
+    swagger_path = os.path.join(os.path.dirname(__file__), "swagger.yml")
+    if os.path.exists(swagger_path):
+        with open(swagger_path, "r") as f:
+            swagger_template = yaml.safe_load(f)
+        Swagger(app, template=swagger_template)
+    else:
+        Swagger(app)  # fallback to default
+
+    # Initialize DB tables (only for dev/demo; use migrations in prod)
+    with app.app_context():
+        db.create_all()
+
+    return app
 
 
-@app.route("/admin/departments", methods=["POST"])
-@role_required(Role.ADMIN)
-def add_department():
-    data = request.get_json()
-    if "name" not in data:
-        return jsonify({"error": "Missing 'name' field"}), 400
-
-    try:
-        dept = create_department(data["name"])
-        return jsonify(department_schema.dump(dept)), 201
-    except ValueError as e:
-        return jsonify({"error": str(e)}), 400
-
-
-@app.route("/admin/departments", methods=["GET"])
-@role_required(Role.ADMIN)
-def get_departments():
-    depts = list_departments()
-    return jsonify(departments_schema.dump(depts)), 200
-
-
-@app.route("/admin/doctors", methods=["POST"])
-@role_required(Role.ADMIN)
-def add_doctor():
-    data = request.get_json()
-    try:
-        doctor = create_doctor(data["name"], data["email"], data["password"])
-        return jsonify(user_schema.dump(doctor)), 201
-    except ValueError as e:
-        return jsonify({"error": str(e)}), 400
-
-
-@app.route("/admin/doctors/assign", methods=["POST"])
-@role_required(Role.ADMIN)
-def assign_doctor():
-    data = request.get_json()
-    try:
-        validated = doctor_assign_schema.load(data) 
-        assignment = assign_doctor_to_department(
-            validated["doctor_id"], validated["department_id"]
-        )
-        return jsonify(doctor_department_schema.dump(assignment)), 201
-    except ValueError as e:
-        return jsonify({"error": str(e)}), 400
-    except Exception as e:
-        return jsonify({"error": str(e)}), 400
-
-
-# Initialize DB tables
-with app.app_context():
-    db.create_all()
-
-# Run server
 if __name__ == "__main__":
+    app = create_app()
     app.run(debug=True)

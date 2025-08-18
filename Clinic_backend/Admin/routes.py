@@ -8,7 +8,7 @@ from Clinic_backend.Admin.schemas import (
     doctor_department_schema,
     user_schema,
 )
-from Clinic_backend.Admin.models.user import Role
+from Clinic_backend.common.models.user import Role
 
 admin_bp = Blueprint("admin", __name__)
 
