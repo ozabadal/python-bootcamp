@@ -4,10 +4,10 @@ from flask import Flask
 from flasgger import Swagger
 from Clinic_backend.config import Config
 from Clinic_backend.database import db
-from Auth.routes import auth_bp
-from Admin.routes import admin_bp
-from Doctor.routes import availability_bp
-from Appointment.routes import appointment_bp
+from auth.routes import auth_bp
+from admin.routes import admin_bp
+from doctor.routes import availability_bp
+from appointment.routes import appointment_bp
 
 
 def create_app(config_class=Config):

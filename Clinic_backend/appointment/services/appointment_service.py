@@ -1,4 +1,4 @@
-from Clinic_backend.Appointment.repository import appointment_repository
+from Clinic_backend.appointment.repository import appointment_repository
 
 def book_appointment(member_id, doctor_id, appointment_time):
     appointment = appointment_repository.book_appointment(member_id, doctor_id, appointment_time)

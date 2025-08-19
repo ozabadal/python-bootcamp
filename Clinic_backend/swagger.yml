@@ -21,7 +21,7 @@ paths:
   /auth/register:
     post:
       tags:
-        - Auth
+        - auth
       summary: Register a new user
       parameters:
         - in: body
@@ -46,7 +46,7 @@ paths:
   /auth/login:
     post:
       tags:
-        - Auth
+        - auth
       summary: Login and get JWT token
       parameters:
         - in: body
@@ -69,7 +69,7 @@ paths:
   /admin/departments:
     post:
       tags:
-        - Admin
+        - admin
       summary: Create a new department
       security:
         - Bearer: []
@@ -90,7 +90,7 @@ paths:
           description: Department already exists
     get:
       tags:
-        - Admin
+        - admin
       summary: List all departments
       security:
         - Bearer: []
@@ -101,7 +101,7 @@ paths:
   /admin/doctors:
     post:
       tags:
-        - Admin
+        - admin
       summary: Onboard a new doctor
       security:
         - Bearer: []
@@ -121,14 +121,14 @@ paths:
                 type: string
       responses:
         201:
-          description: Doctor created successfully
+          description: doctor created successfully
         400:
           description: Email already exists
 
   /admin/doctors/assign:
     post:
       tags:
-        - Admin
+        - admin
       summary: Assign a doctor to a department
       security:
         - Bearer: []
@@ -146,14 +146,14 @@ paths:
                 type: integer
       responses:
         201:
-          description: Doctor assigned successfully
+          description: doctor assigned successfully
         400:
-          description: Doctor already assigned
+          description: doctor already assigned
 
   /availability:
     post:
       tags:
-        - Doctor
+        - doctor
       summary: Create availability for a doctor
       security:
         - Bearer: []
@@ -178,7 +178,7 @@ paths:
           description: Invalid data or overlapping availability
     get:
       tags:
-        - Doctor
+        - doctor
       summary: List availability for the logged-in doctor
       security:
         - Bearer: []
@@ -191,7 +191,7 @@ paths:
   /appointments:
     post:
       tags:
-        - Appointment
+        - appointment
       summary: Book an appointment with a doctor
       security:
         - Bearer: []
@@ -210,12 +210,12 @@ paths:
                 format: date-time
       responses:
         201:
-          description: Appointment booked successfully
+          description: appointment booked successfully
         400:
           description: Invalid data or slot unavailable
     get:
       tags:
-        - Appointment
+        - appointment
       summary: List appointments for the logged-in user
       description:
         - Members see their own booked appointments

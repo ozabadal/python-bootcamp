@@ -11,7 +11,7 @@ def create_admin_token():
     expire = datetime.now() + expires_delta
     to_encode.update({"exp": expire})
     output = jwt.encode(to_encode, os.getenv("JWT_SECRET_KEY"), algorithm="HS256")
-    print("Below is the Admin access Token - \n")
+    print("Below is the admin access Token - \n")
     print(output)
 
 create_admin_token()

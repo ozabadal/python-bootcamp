@@ -1,4 +1,4 @@
-from Clinic_backend.Admin.models.department import Department
+from Clinic_backend.admin.models.department import Department
 from Clinic_backend.database import db
 
 def create_department(name):

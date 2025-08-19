@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
-from Clinic_backend.Appointment.services import appointment_service
-from Clinic_backend.Appointment.schemas.appointment_schema import appointment_schema, appointments_schema
+from Clinic_backend.appointment.services import appointment_service
+from Clinic_backend.appointment.schemas.appointment_schema import appointment_schema, appointments_schema
 from Clinic_backend.common.rbac import role_required
 from Clinic_backend.common.models.user import Role
 

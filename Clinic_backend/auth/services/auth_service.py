@@ -1,4 +1,4 @@
-from Clinic_backend.Auth.repository import user_repository
+from Clinic_backend.auth.repository import user_repository
 from Clinic_backend.common.models.user import Role
 from Clinic_backend.common.utils import verify_password
 from Clinic_backend.common.jwt_handler import create_access_token

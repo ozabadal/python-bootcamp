@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
-from Clinic_backend.Auth.services import auth_service
-from Clinic_backend.Auth.schemas import register_schema, login_schema
+from Clinic_backend.auth.services import auth_service
+from Clinic_backend.auth.schemas import register_schema, login_schema
 from Clinic_backend.common.schemas.user_schema import user_schema
 
 

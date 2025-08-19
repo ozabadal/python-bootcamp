@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from Clinic_backend.common.rbac import role_required
-from Clinic_backend.Admin.services import department_service, user_service
-from Clinic_backend.Admin.schemas import (
+from Clinic_backend.admin.services import department_service, user_service
+from Clinic_backend.admin.schemas import (
     department_schema,
     departments_schema,
     doctor_assign_schema,
@@ -30,7 +30,7 @@ def list_departments(user_id, user_role):
     return jsonify(departments_schema.dump(departments))
 
 
-# --- Doctor Onboarding ---
+# --- doctor Onboarding ---
 @admin_bp.route("/doctors", methods=["POST"])
 @role_required(Role.ADMIN)
 def onboard_doctor(user_id, user_role):
@@ -43,7 +43,7 @@ def onboard_doctor(user_id, user_role):
         return jsonify({"error": str(e)}), 400
 
 
-# --- Assign Doctor to Department ---
+# --- Assign doctor to Department ---
 @admin_bp.route("/doctors/assign", methods=["POST"])
 @role_required(Role.ADMIN)
 def assign_doctor(user_id, user_role):

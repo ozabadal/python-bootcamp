@@ -1,5 +1,5 @@
-from Clinic_backend.Appointment.models.appointment import Appointment
-from Clinic_backend.Doctor.models.availability import Availability
+from Clinic_backend.appointment.models.appointment import Appointment
+from Clinic_backend.doctor.models.availability import Availability
 from flask import Blueprint, request, jsonify
 from Clinic_backend.database import db
 from Clinic_backend.common.models.user import Role
@@ -13,7 +13,7 @@ def book_appointment(member_id, doctor_id, appointment_time):
         Availability.end_time >= appointment_time,
     ).first()
     if not availability:
-        return jsonify({"error": "Doctor not available at this time"}), 400
+        return jsonify({"error": "doctor not available at this time"}), 400
 
     # Prevent double booking
     existing = Appointment.query.filter_by(
