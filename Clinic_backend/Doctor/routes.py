@@ -22,7 +22,7 @@ def create_availability(user_id, user_role):
 
 
 @availability_bp.route("/", methods=["GET"])
-@role_required(Role.DOCTOR)
+@role_required(Role.MEMBER, Role.DOCTOR, Role.ADMIN)
 def list_availability(user_id, user_role):
     try:
         availabilities = availability_service.list_availability(doctor_id=user_id)

@@ -6,6 +6,22 @@ from Clinic_backend.common.models.user import Role
 
 
 def book_appointment(member_id, doctor_id, appointment_time):
+    # Ensure doctor is available at this time
+    availability = Availability.query.filter(
+        Availability.doctor_id == doctor_id,
+        Availability.start_time <= appointment_time,
+        Availability.end_time >= appointment_time,
+    ).first()
+    if not availability:
+        return jsonify({"error": "Doctor not available at this time"}), 400
+
+    # Prevent double booking
+    existing = Appointment.query.filter_by(
+        doctor_id=doctor_id,
+        appointment_time=appointment_time
+    ).first()
+    if existing:
+        return jsonify({"error": "This slot is already booked"}), 400
 
     appointment = Appointment(
         doctor_id=doctor_id,

@@ -9,7 +9,7 @@ class Appointment(db.Model):
     member_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     appointment_time = db.Column(db.DateTime, nullable=False)
 
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=datetime.now())
 
     doctor = db.relationship("User", foreign_keys=[doctor_id], backref="doctor_appointments")
     member = db.relationship("User", foreign_keys=[member_id], backref="member_appointments")
