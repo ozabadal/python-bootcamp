@@ -1,5 +1,5 @@
 from datetime import datetime
-from Clinic_backend.database import db
+from clinic_backend.database import db
 
 class Availability(db.Model):
     __tablename__ = "availabilities"

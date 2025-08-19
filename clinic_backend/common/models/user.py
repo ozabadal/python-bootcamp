@@ -1,7 +1,7 @@
 from datetime import datetime
 from enum import Enum
-from Clinic_backend.database import db
-from Clinic_backend.common.utils import generate_password_hash, check_password_hash
+from clinic_backend.database import db
+from werkzeug.security import generate_password_hash, check_password_hash
 
 class Role(Enum):
     ADMIN = "ADMIN"

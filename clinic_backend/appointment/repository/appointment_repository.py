@@ -1,8 +1,8 @@
-from Clinic_backend.appointment.models.appointment import Appointment
-from Clinic_backend.doctor.models.availability import Availability
+from clinic_backend.appointment.models.appointment import Appointment
+from clinic_backend.doctor.models.availability import Availability
 from flask import Blueprint, request, jsonify
-from Clinic_backend.database import db
-from Clinic_backend.common.models.user import Role
+from clinic_backend.database import db
+from clinic_backend.common.models.user import Role
 
 
 def book_appointment(member_id, doctor_id, appointment_time):

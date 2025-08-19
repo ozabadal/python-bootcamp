@@ -1,5 +1,5 @@
-from Clinic_backend.common.models.user import User
-from Clinic_backend.database import db
+from clinic_backend.common.models.user import User
+from clinic_backend.database import db
 
 
 def create_user(name, email, password, role):

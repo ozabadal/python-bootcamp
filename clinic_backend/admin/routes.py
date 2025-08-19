@@ -1,14 +1,14 @@
 from flask import Blueprint, request, jsonify
-from Clinic_backend.common.rbac import role_required
-from Clinic_backend.admin.services import department_service, user_service
-from Clinic_backend.admin.schemas import (
+from clinic_backend.common.rbac import role_required
+from clinic_backend.admin.services import department_service, user_service
+from clinic_backend.admin.schemas import (
     department_schema,
     departments_schema,
     doctor_assign_schema,
     doctor_department_schema,
     user_schema,
 )
-from Clinic_backend.common.models.user import Role
+from clinic_backend.common.models.user import Role
 
 admin_bp = Blueprint("admin", __name__)
 

@@ -1,7 +1,7 @@
-from Clinic_backend.auth.repository import user_repository
-from Clinic_backend.common.models.user import Role
-from Clinic_backend.common.utils import verify_password
-from Clinic_backend.common.jwt_handler import create_access_token
+from clinic_backend.auth.repository import user_repository
+from clinic_backend.common.models.user import Role
+from clinic_backend.common.utils import verify_password
+from clinic_backend.common.jwt_handler import create_access_token
 
 def register_user(name, email, password):
     normalized_name = name.strip().lower()

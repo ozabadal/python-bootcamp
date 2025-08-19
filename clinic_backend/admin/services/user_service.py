@@ -1,7 +1,7 @@
-from Clinic_backend.common.models.user import Role
-from Clinic_backend.admin.models.doctor_department import DoctorDepartment
-from Clinic_backend.database import db
-from Clinic_backend.admin.repository import user_repository
+from clinic_backend.common.models.user import Role
+from clinic_backend.admin.models.doctor_department import DoctorDepartment
+from clinic_backend.database import db
+from clinic_backend.admin.repository import user_repository
 
 def create_doctor(name, email, password):
     normalized_name = name.strip().lower()

@@ -1,5 +1,5 @@
-from Clinic_backend.database import db
-from Clinic_backend.doctor.models.availability import Availability
+from clinic_backend.database import db
+from clinic_backend.doctor.models.availability import Availability
 
 def create_availability(doctor_id, start_time, end_time):
 

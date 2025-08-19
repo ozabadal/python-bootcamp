@@ -1,4 +1,4 @@
-from Clinic_backend.admin.repository import department_repository
+from clinic_backend.admin.repository import department_repository
 
 def create_department(name: str):
     normalized_name = name.strip().lower()

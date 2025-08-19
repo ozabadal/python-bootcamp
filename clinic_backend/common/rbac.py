@@ -1,6 +1,6 @@
 from functools import wraps
 from flask import request, jsonify
-from Clinic_backend.common.jwt_handler import decode_access_token
+from clinic_backend.common.jwt_handler import decode_access_token
 
 def role_required(*roles):
     def wrapper(fn):

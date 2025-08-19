@@ -1,5 +1,5 @@
-from Clinic_backend.admin.models.department import Department
-from Clinic_backend.database import db
+from clinic_backend.admin.models.department import Department
+from clinic_backend.database import db
 
 def create_department(name):
     if Department.query.filter_by(name=name).first():

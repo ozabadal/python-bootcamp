@@ -1,8 +1,8 @@
 from flask import Blueprint, request, jsonify
-from Clinic_backend.doctor.services import availability_service
-from Clinic_backend.doctor.schemas.availability_schema import availability_schema, availabilities_schema
-from Clinic_backend.common.rbac import role_required
-from Clinic_backend.common.models.user import Role
+from clinic_backend.doctor.services import availability_service
+from clinic_backend.doctor.schemas.availability_schema import availability_schema, availabilities_schema
+from clinic_backend.common.rbac import role_required
+from clinic_backend.common.models.user import Role
 
 availability_bp = Blueprint("availability", __name__)
 

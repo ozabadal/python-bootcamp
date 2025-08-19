@@ -1,4 +1,4 @@
-from Clinic_backend.database import db
+from clinic_backend.database import db
 
 class DoctorDepartment(db.Model):
     id = db.Column(db.Integer, primary_key=True)

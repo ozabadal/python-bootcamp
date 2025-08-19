@@ -2,8 +2,8 @@ import os
 import yaml
 from flask import Flask
 from flasgger import Swagger
-from Clinic_backend.config import Config
-from Clinic_backend.database import db
+from config import Config
+from database import db
 from auth.routes import auth_bp
 from admin.routes import admin_bp
 from doctor.routes import availability_bp

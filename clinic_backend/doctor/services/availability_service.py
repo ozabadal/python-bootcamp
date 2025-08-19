@@ -1,4 +1,4 @@
-from Clinic_backend.doctor.repository import availability_repository
+from clinic_backend.doctor.repository import availability_repository
 
 def create_availability(doctor_id, start_time, end_time):
     return availability_repository.create_availability(doctor_id, start_time, end_time)
