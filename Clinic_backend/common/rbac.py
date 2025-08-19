@@ -15,10 +15,13 @@ def role_required(*roles):
             if not payload:
                 return jsonify({"error": "Invalid or expired token"}), 401
 
+            user_id = payload.get("user_id")
             user_role = payload.get("role")
             if user_role not in [role.value for role in roles]:
                 return jsonify({"error": "Forbidden"}), 403
 
-            return fn(*args, **kwargs)
+            # return fn(*args, **kwargs)
+            return fn(*args, user_id=user_id, user_role=user_role, **kwargs)
+
         return decorated
     return wrapper
