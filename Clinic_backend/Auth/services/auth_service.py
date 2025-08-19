@@ -13,6 +13,7 @@ def login_user(email, password):
     user = user_repository.get_user_by_email(email=normalized_email)
     if not user or not verify_password(password, user.password_hash):
         raise ValueError("Invalid credentials")
+    print(user.id, user.role.value)
     
     token = create_access_token(data={"user_id": user.id, "role": user.role.value})
     return token, user

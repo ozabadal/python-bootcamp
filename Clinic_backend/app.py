@@ -6,6 +6,8 @@ from Clinic_backend.config import Config
 from Clinic_backend.database import db
 from Auth.routes import auth_bp
 from Admin.routes import admin_bp
+from Doctor.routes import availability_bp
+from Appointment.routes import appointment_bp
 
 
 def create_app(config_class=Config):
@@ -19,6 +21,8 @@ def create_app(config_class=Config):
     # Register blueprints
     app.register_blueprint(auth_bp, url_prefix="/auth")
     app.register_blueprint(admin_bp, url_prefix="/admin")
+    app.register_blueprint(availability_bp, url_prefix="/availability")
+    app.register_blueprint(appointment_bp, url_prefix="/appointments")
 
     # Load and register Swagger docs
     swagger_path = os.path.join(os.path.dirname(__file__), "swagger.yml")

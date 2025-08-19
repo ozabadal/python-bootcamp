@@ -14,7 +14,7 @@ admin_bp = Blueprint("admin", __name__)
 
 @admin_bp.route("/departments", methods=["POST"])
 @role_required(Role.ADMIN)
-def create_department():
+def create_department(user_id, user_role):
     data = request.get_json()
     try:
         validated = department_schema.load(data)
@@ -25,7 +25,7 @@ def create_department():
 
 @admin_bp.route("/departments", methods=["GET"])
 @role_required(Role.ADMIN)
-def list_departments():
+def list_departments(user_id, user_role):
     departments = department_service.list_departments()
     return jsonify(departments_schema.dump(departments))
 
@@ -33,7 +33,7 @@ def list_departments():
 # --- Doctor Onboarding ---
 @admin_bp.route("/doctors", methods=["POST"])
 @role_required(Role.ADMIN)
-def onboard_doctor():
+def onboard_doctor(user_id, user_role):
     data = request.get_json()
     try:
         validated = user_schema.load(data)
@@ -46,7 +46,7 @@ def onboard_doctor():
 # --- Assign Doctor to Department ---
 @admin_bp.route("/doctors/assign", methods=["POST"])
 @role_required(Role.ADMIN)
-def assign_doctor():
+def assign_doctor(user_id, user_role):
     data = request.get_json()
     try:
         validated = doctor_assign_schema.load(data)  # marshmallow validation

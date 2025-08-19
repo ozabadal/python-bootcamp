@@ -1,7 +1,7 @@
 swagger: "2.0"
 info:
   title: Clinic Management API
-  description: APIs for managing users, departments, and doctors
+  description: APIs for managing users, departments, doctors, availability, and appointments
   version: "1.0.0"
 
 basePath: /
@@ -149,3 +149,82 @@ paths:
           description: Doctor assigned successfully
         400:
           description: Doctor already assigned
+
+  /availability:
+    post:
+      tags:
+        - Doctor
+      summary: Create availability for a doctor
+      security:
+        - Bearer: []
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            required: [start_time, end_time]
+            properties:
+              start_time:
+                type: string
+                format: date-time
+              end_time:
+                type: string
+                format: date-time
+      responses:
+        201:
+          description: Availability created successfully
+        400:
+          description: Invalid data or overlapping availability
+    get:
+      tags:
+        - Doctor
+      summary: List availability for the logged-in doctor
+      security:
+        - Bearer: []
+      responses:
+        200:
+          description: List of availability slots
+        400:
+          description: Error fetching availabilities
+
+  /appointments:
+    post:
+      tags:
+        - Appointment
+      summary: Book an appointment with a doctor
+      security:
+        - Bearer: []
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            required: [doctor_id, appointment_time]
+            properties:
+              doctor_id:
+                type: integer
+              appointment_time:
+                type: string
+                format: date-time
+      responses:
+        201:
+          description: Appointment booked successfully
+        400:
+          description: Invalid data or slot unavailable
+    get:
+      tags:
+        - Appointment
+      summary: List appointments for the logged-in user
+      description:
+        - Members see their own booked appointments
+        - Doctors see appointments assigned to them
+        - Admins see all appointments
+      security:
+        - Bearer: []
+      responses:
+        200:
+          description: List of appointments
+        400:
+          description: Error fetching appointments
